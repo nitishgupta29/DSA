@@ -7,10 +7,11 @@ class Solution {
                 count++;
             }
             else{
-               count=0; 
+                ans+=count*(count+1)/2;
+                count=0;
             }
-            ans+=count;
         }
+        ans+=count*(count+1)/2;
         return ans;
     }
 }
