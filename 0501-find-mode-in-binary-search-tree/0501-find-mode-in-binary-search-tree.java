@@ -16,16 +16,16 @@
 class Solution {
     public int[] findMode(TreeNode root) {
         Map<Integer,Integer> m=new HashMap<>();
-        Stack<TreeNode> s=new Stack<>();
-        s.push(root);
-        while(!s.isEmpty()){
-            TreeNode curr=s.pop();
+        Queue<TreeNode> q=new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            TreeNode curr=q.remove();
             m.put(curr.val,m.getOrDefault(curr.val,0)+1);
             if(curr.left!=null){
-                s.push(curr.left);
+               q.add(curr.left);
             }
             if(curr.right!=null){
-                s.push(curr.right);
+                q.add(curr.right);
             }
         }
         int max=0;
