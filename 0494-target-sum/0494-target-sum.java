@@ -10,9 +10,13 @@ class Solution {
         if ((sum - target) % 2 == 1)
             return 0;
         int n=nums.length;
-        return rec(n-1,nums,t);
+        int[][] dp=new int[n][t+1];
+        for(int[] row:dp){
+            Arrays.fill(row,-1);
+        }
+        return rec(n-1,nums,t,dp);
     }
-    int rec(int i,int[] nums,int t){
+    int rec(int i,int[] nums,int t, int[][] dp){
         if(i==0){
             if(nums[i]==0 && t==0)
                 return 2;
@@ -20,11 +24,12 @@ class Solution {
                 return 1;
             return 0;
         }
-        int notPick= rec(i-1,nums,t);
+        if(dp[i][t]!=-1) return dp[i][t];
+        int notPick= rec(i-1,nums,t,dp);
         int pick=0;
         if(t>=nums[i]){
-            pick=rec(i-1,nums,t-nums[i]);
+            pick=rec(i-1,nums,t-nums[i],dp);
         }
-        return pick+notPick;
+        return dp[i][t]=pick+notPick;
     }
 }
