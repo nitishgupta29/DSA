@@ -10,20 +10,22 @@ class Solution {
         if ((sum - target) % 2 == 1)
             return 0;
         int n=nums.length;
-        int[][] dp=new int[n][t+1];
-        if(nums[0] == 0) dp[0][0] =2;  
-        else dp[0][0] = 1;  
-        if(nums[0]!=0 && nums[0]<=t) dp[0][nums[0]] = 1;
+        int[] prev=new int[t+1];
+        if(nums[0] == 0) prev[0] =2;  
+        else prev[0] = 1;  
+        if(nums[0]!=0 && nums[0]<=t) prev[nums[0]] = 1;
         for(int i=1;i<n;i++){
+            int[] curr=new int[t+1];
             for(int j=0;j<=t;j++){
-                int notPick= dp[i-1][j];
+                int notPick= prev[j];
                 int pick=0;
                 if(j>=nums[i]){
-                   pick=dp[i-1][j-nums[i]];
+                   pick=prev[j-nums[i]];
                 }
-                dp[i][j]=pick+notPick;
+                curr[j]=pick+notPick;
             }
+            prev=curr;
         }
-        return dp[n-1][t];
+        return prev[t];
     }
 }
