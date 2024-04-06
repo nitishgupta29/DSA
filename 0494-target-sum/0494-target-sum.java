@@ -11,25 +11,19 @@ class Solution {
             return 0;
         int n=nums.length;
         int[][] dp=new int[n][t+1];
-        for(int[] row:dp){
-            Arrays.fill(row,-1);
+        if(nums[0] == 0) dp[0][0] =2;  
+        else dp[0][0] = 1;  
+        if(nums[0]!=0 && nums[0]<=t) dp[0][nums[0]] = 1;
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=t;j++){
+                int notPick= dp[i-1][j];
+                int pick=0;
+                if(j>=nums[i]){
+                   pick=dp[i-1][j-nums[i]];
+                }
+                dp[i][j]=pick+notPick;
+            }
         }
-        return rec(n-1,nums,t,dp);
-    }
-    int rec(int i,int[] nums,int t, int[][] dp){
-        if(i==0){
-            if(nums[i]==0 && t==0)
-                return 2;
-            if(t==0 || nums[i]==t)
-                return 1;
-            return 0;
-        }
-        if(dp[i][t]!=-1) return dp[i][t];
-        int notPick= rec(i-1,nums,t,dp);
-        int pick=0;
-        if(t>=nums[i]){
-            pick=rec(i-1,nums,t-nums[i],dp);
-        }
-        return dp[i][t]=pick+notPick;
+        return dp[n-1][t];
     }
 }
