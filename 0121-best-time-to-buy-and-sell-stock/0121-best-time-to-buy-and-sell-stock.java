@@ -3,13 +3,13 @@ class Solution {
        int ans=0;
         int buy=prices[0];
         for(int i=1;i<prices.length;i++){
-            if(buy>prices[i]){
-                buy=prices[i];
-            }
-            else{
-                ans=Math.max(ans,prices[i]-buy);
-            }
+           int cost=prices[i]-buy;
+           ans=Math.max(ans,cost);
+            buy=Math.min(buy,prices[i]);
         }
         return ans;
+        
+        
+        /// IT IS DP BECAUSE WE KEEP TRACK OF MIN BUYING PRICE
     }
 }
