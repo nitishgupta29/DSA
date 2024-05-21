@@ -20,12 +20,9 @@ class Solution {
             temp=temp.next;
         }
         Collections.sort(arr);
-        ListNode n = new ListNode(arr.get(0));
-        head =n;
         temp=head;
-        for(int i=1;i<arr.size();i++){
-            ListNode n1 = new ListNode(arr.get(i));
-            temp.next=n1;
+        for(int i=0;i<arr.size();i++){
+            temp.val=arr.get(i);
             temp=temp.next;
         }
         return head;
