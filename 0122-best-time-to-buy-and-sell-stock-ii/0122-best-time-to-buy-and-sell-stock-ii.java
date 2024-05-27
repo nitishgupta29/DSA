@@ -1,19 +1,22 @@
 class Solution {
     public int maxProfit(int[] prices) {
-       if (prices == null || prices.length <= 1) {
-            return 0;
+      int n=prices.length;
+        int[][] dp=new int[n][2];
+        for(int[] row:dp){
+            Arrays.fill(row,-1);
         }
-
-        int totalProfit = 0;
-        for (int i = 1; i < prices.length; i++) {
-            // Checking if we can profit with previous day's price.
-            // If yes, then we buy on previous day and sell on current day.
-            // Add all such profits to get the total profit.
-            if (prices[i - 1] < prices[i]) {
-                totalProfit += prices[i] - prices[i - 1];
-            }
+        return rec(0,0,prices,n,dp);
+    }
+    int rec(int i,int buy,int[] prices,int n,int[][] dp){
+        if(i==n) return 0;
+        if(dp[i][buy]!=-1) return dp[i][buy];
+        int profit=0;
+        if(buy==0){
+            profit=Math.max((-prices[i]+rec(i+1,1,prices,n,dp)),rec(i+1,0,prices,n,dp));
         }
-
-        return totalProfit;
+        else{
+            profit=Math.max((prices[i]+rec(i+1,0,prices,n,dp)),rec(i+1,1,prices,n,dp));
+        }
+        return dp[i][buy]=profit;
     }
 }
