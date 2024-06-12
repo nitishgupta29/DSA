@@ -16,13 +16,19 @@
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> ans=new ArrayList<>();
-        rec(root,ans);
+        if(root==null) return ans;
+        Stack<TreeNode> st=new Stack<>();
+        st.push(root);
+        while(!st.isEmpty()){
+            TreeNode curr = st.pop();
+            ans.add(0,curr.val);
+            if(curr.left!=null){
+                st.push(curr.left);
+            }
+            if(curr.right!=null){
+                st.push(curr.right);
+            }
+        }
         return ans;
-    }
-    void rec(TreeNode root,List<Integer> ans){
-          if(root==null) return;
-          rec(root.left,ans);
-        rec(root.right,ans);
-        ans.add(root.val);
     }
 }
